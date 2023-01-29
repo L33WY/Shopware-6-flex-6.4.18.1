@@ -3,11 +3,9 @@ version: "3"
 services:
   shop:
     image: dockware/flex:latest
-    container_name: my_shop
+    container_name: ${SHOP_NAME}_shop
     volumes:
       - ".:/var/www/html/"
-    env_file:
-      - shop/.env.dev
     ports:
       - "80:80"
       - "23:22"
@@ -16,12 +14,12 @@ services:
       - "8080:8080"
   shop_db:
     image: mysql:5.7
+    container_name: ${MYSQL_DATABASE}_db
     environment:
       - MYSQL_USER=${MYSQL_USER}
-#      - MYSQL_USER=shop
-      - MYSQL_PASSWORD=shopPassword
-      - MYSQL_ROOT_PASSWORD=secretPassword
-      - MYSQL_DATABASE=my_shop_db
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - '3306:3306'
+      - '3307:3306'
 

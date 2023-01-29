@@ -1,3 +1,18 @@
+# Shopware 6 production template dockware-flex set up
+
+To set up the environment and install with a basic setup run the following commands:
+
+```bash
+#1 If you want you can adjust .env file
+# SHOP_NAME cannot contain spaces 
+
+#2 run docker compose
+docker compose up -d
+
+#3 run shop set up script (replace SHOP_NAME with you shop name)
+docker exec ${SHOP_NAME}_shop bin/set-up-shop.sh
+```
+
 # Shopware 6 production template
 
 This repository contains the production template that enables you to build,
@@ -35,31 +50,6 @@ See [https://developer.shopware.com/docs/guides/installation/overview#prerequisi
 NPM and Node are only required during the build process and for development. If you don't have javascript customizations it's not required at all because the storefront and admin are prebuilt.
 
 If you are using a separate build server, consider having NPM and Node as build-only requirements. Your operating application server doesn't require any of these to run Shopware 6.
-
-## Setup and install
-
-To set up the environment and install with a basic setup run the following commands:
-
-```bash
-# clone the newest patch version from github 
-git clone --branch=[current version] https://github.com/shopware/production shopware
-cd shopware
-
-# install shopware and dependencies according to the composer.lock 
-composer install
-
-# setup the environment
-bin/console system:setup
-# or create .env yourself, if you need more control
-# create jwt secret: bin/console system:generate-jwt-secret
-# create app secret: APP_SECRET=$(bin/console system:generate-app-secret)
-# create .env
-
-# create database with a basic setup (admin user and storefront sales channel)
-bin/console system:install --create-database --basic-setup
-
-# or run `bin/console assets:install` and use the interactive installer in the browser: /recovery/install/index.php
-```
 
 ## Update
 
